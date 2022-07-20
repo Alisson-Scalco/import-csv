@@ -1,0 +1,65 @@
+<template>
+  <div class="q-gutter-y-md column file-picker" style="max-width: 500px">
+    <q-file
+      :color="ColorEnum.primary"
+      outlined
+      use-chips
+      v-model="files"
+      accept=".csv"
+    >
+      <template v-if="fileProps.visibilityText === true">
+        <div class="row container-file self-center">
+          <div class="offset-md-2">
+            <p-text :text-props="{ size: 'sm', color: ColorEnum.primary }"
+              >{{ fileProps?.textOne }}
+            </p-text>
+          </div>
+          <div class="offset-md-1">
+            <p-text :text-props="{ size: 'sm', color: ColorEnum.primary }">
+              {{ fileProps?.textTwo }}
+            </p-text>
+          </div>
+        </div>
+      </template>
+    </q-file>
+  </div>
+
+
+</template>
+
+<script lang="ts">
+import { defineComponent, PropType } from 'vue';
+import { FileProps, modelArray } from './type';
+import { ColorEnum } from '../../../config/style.enum';
+import PText from '../../atoms/PText/Index.vue';
+
+export default defineComponent({
+  name: 'PFilePicker',
+  components: {
+    PText,
+  },
+  props: {
+    fileProps: {
+      type: Object as PropType<FileProps>,
+    },
+  },
+  data() {
+    const files: modelArray = [];
+    return {
+      files,
+      ColorEnum,
+    };
+  },
+  watch: {
+    files: function (value) {
+      let { file } = value;
+
+      if (!file) {
+        file = value;
+      }
+
+      this.$emit('onChange', file as modelArray);
+    },
+  },
+});
+</script>
