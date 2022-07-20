@@ -1,0 +1,19 @@
+<p-file-picker
+        @onChange="importForm.csv = $event"
+        :file-props="{
+          files: importForm.csv,
+          textOne: 'Arraste o arquivo CSV aqui ou',
+          textTwo: 'se preferir clique aqui e selecione o arquivo',
+          visibilityText: visibilityText(),
+        }"
+      >
+      </p-file-picker>
+      
+      // function que criei para aparecer ou desaparecer elementos: 
+      
+      visibilityText(): boolean {
+      if (this.importForm.csv != '') return false;
+      return true;
+    },
+    
+    // Obs: Vou criar mais é somente um exemplo
